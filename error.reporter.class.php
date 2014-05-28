@@ -1,7 +1,12 @@
 <?php
 
 class errorReporter {
+    
+    protected static $instance = null;
 
+    private $_errors = array();
+
+    
     /**
      * Returns the *Singleton* instance of this class.
      *
@@ -10,22 +15,18 @@ class errorReporter {
      * @return Singleton The *error_reporter* instance.
      */
     public static function getInstance() {
-        static $instance = null;
-        if ( null === $instance ) {
-            $instance = new static();
+        if (!isset(static::$instance)) {
+            static::$instance = new static;
         }
-
-        return $instance;
+        return static::$instance;
     }
-
+    
     /**
      * Protected constructor to prevent creating a new instance of the
      * *Singleton* via the `new` operator from outside of this class.
      */
-    private $_errors = array();
-
     protected function __construct() {
-        $this->_errors = $error;
+        //
     }
 
     /**
@@ -50,5 +51,14 @@ class errorReporter {
 
 }
 
-$obj = errorReporter::getInstance();
-var_dump( $obj === Singleton::getInstance() );             // bool(true)
+$obj1 = errorReporter::getInstance();
+
+$obj2 = errorReporter::getInstance();
+
+echo '<h3>obj1<h3>';
+
+var_dump($obj1);
+
+echo '<h3>obj2</h3>';
+
+var_dump($obj2;
